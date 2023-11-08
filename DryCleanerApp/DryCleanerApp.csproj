@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DryCleanerAppBussinessLayer\DryCleanerAppBussinessLogic.csproj" />
+
     <ProjectReference Include="..\DryCleanerAppBussinessLogic\DryCleanerAppBussinessLogic.csproj" />
     <ProjectReference Include="..\DryCleanerAppDataAccess\DryCleanerAppDataAccess.csproj" />
   </ItemGroup>

@@ -14,7 +14,7 @@ namespace DryCleanerAppDataAccess.DataAccess
         public DbSet<CompanyEntity> companyEntities { get; set; }
         public DbSet<UserEntity> users { get; set; }
         public DbSet<UserAddressEntity> usersAddress { get; set; }
-        public DbSet<LoginLogEntity> loginLog { get; set; }
+
 
     }
 }

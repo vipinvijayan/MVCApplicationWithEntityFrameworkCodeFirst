@@ -2,7 +2,7 @@
 MVC Sample Application with Entity Framework Code First Approach
 
 
-**Create New mvc core application with name DryCleanerApp with Target framework .Net7  **
+#**Create New mvc core application with name DryCleanerApp with Target framework .Net7  **
 
 
 

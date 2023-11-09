@@ -15,12 +15,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//getting connection string from appsettings.json
 string? dbConnectionString = builder.Configuration.GetConnectionString("AppConnection");
 
+//adding DB Context for mysql connection
 builder.Services.AddDbContext<DryCleanerContext>(options =>
 options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString))
 );
+//Adding Repository for dependency injection
 builder.Services.AddRepositoryDependecies();
+//Adding Buissiness logic files 
 builder.Services.AddScoped<ICompanyB, CompanyB>();
 
 var app = builder.Build();

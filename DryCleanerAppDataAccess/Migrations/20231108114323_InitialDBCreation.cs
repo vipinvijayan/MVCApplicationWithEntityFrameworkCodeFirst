@@ -20,21 +20,25 @@ namespace DryCleanerAppDataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CompanyName = table.Column<string>(type: "longtext", nullable: false)
+                    CompanyName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CompanyDescription = table.Column<string>(type: "longtext", nullable: true)
+                    CompanyDescription = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CompanyAddress = table.Column<string>(type: "longtext", nullable: true)
+                    CompanyAddress = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CompanyCity = table.Column<string>(type: "longtext", nullable: true)
+                    Place = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CompanyState = table.Column<string>(type: "longtext", nullable: true)
+                    LandMark = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CompanyCountry = table.Column<string>(type: "longtext", nullable: true)
+                    CompanyCity = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CompanyPhone = table.Column<string>(type: "longtext", nullable: true)
+                    CompanyState = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CompanyEmail = table.Column<string>(type: "longtext", nullable: true)
+                    CompanyCountry = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CompanyPhone = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CompanyEmail = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
@@ -69,9 +73,9 @@ namespace DryCleanerAppDataAccess.Migrations
                     UpdatedOn = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Username = table.Column<string>(type: "longtext", nullable: false)
+                    Username = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password = table.Column<string>(type: "longtext", nullable: false)
+                    Password = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -82,38 +86,6 @@ namespace DryCleanerAppDataAccess.Migrations
                         name: "FK_users_companyEntities_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "companyEntities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "loginLog",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedOn = table.Column<int>(type: "int", nullable: false),
-                    UserAgent = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    UserDataId = table.Column<int>(type: "int", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_loginLog", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_loginLog_companyEntities_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "companyEntities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_loginLog_users_UserDataId",
-                        column: x => x.UserDataId,
-                        principalTable: "users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -165,16 +137,6 @@ namespace DryCleanerAppDataAccess.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_loginLog_CompanyId",
-                table: "loginLog",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_loginLog_UserDataId",
-                table: "loginLog",
-                column: "UserDataId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_users_CompanyId",
                 table: "users",
                 column: "CompanyId");
@@ -188,9 +150,6 @@ namespace DryCleanerAppDataAccess.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "loginLog");
-
             migrationBuilder.DropTable(
                 name: "usersAddress");
 

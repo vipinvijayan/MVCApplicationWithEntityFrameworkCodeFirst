@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DryCleanerAppDataAccess.Migrations
 {
     [DbContext(typeof(DryCleanerContext))]
-    [Migration("20231106043409_InitialDBCreation")]
+    [Migration("20231108114323_InitialDBCreation")]
     partial class InitialDBCreation
     {
         /// <inheritdoc />
@@ -22,36 +22,44 @@ namespace DryCleanerAppDataAccess.Migrations
                 .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("DryCleanerAppDataAccess.Models.CompanyEntity", b =>
+            modelBuilder.Entity("DryCleanerAppDataAccess.Entities.CompanyEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("CompanyAddress")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)");
 
                     b.Property<string>("CompanyCity")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("CompanyCountry")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("CompanyDescription")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)");
 
                     b.Property<string>("CompanyEmail")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("CompanyPhone")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)");
 
                     b.Property<string>("CompanyState")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -65,6 +73,14 @@ namespace DryCleanerAppDataAccess.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("LandMark")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Place")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
                     b.Property<int>("UpdatedBy")
                         .HasColumnType("int");
 
@@ -76,38 +92,7 @@ namespace DryCleanerAppDataAccess.Migrations
                     b.ToTable("companyEntities");
                 });
 
-            modelBuilder.Entity("DryCleanerAppDataAccess.Models.LoginLogEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreatedOn")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserAgent")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("UserDataId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("UserDataId");
-
-                    b.ToTable("loginLog");
-                });
-
-            modelBuilder.Entity("DryCleanerAppDataAccess.Models.UserAddressEntity", b =>
+            modelBuilder.Entity("DryCleanerAppDataAccess.Entities.UserAddressEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -190,7 +175,7 @@ namespace DryCleanerAppDataAccess.Migrations
                     b.ToTable("usersAddress");
                 });
 
-            modelBuilder.Entity("DryCleanerAppDataAccess.Models.UserEntity", b =>
+            modelBuilder.Entity("DryCleanerAppDataAccess.Entities.UserEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -233,7 +218,8 @@ namespace DryCleanerAppDataAccess.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)");
 
                     b.Property<int>("UpdatedBy")
                         .HasColumnType("int");
@@ -243,7 +229,8 @@ namespace DryCleanerAppDataAccess.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
@@ -252,35 +239,16 @@ namespace DryCleanerAppDataAccess.Migrations
                     b.ToTable("users");
                 });
 
-            modelBuilder.Entity("DryCleanerAppDataAccess.Models.LoginLogEntity", b =>
+            modelBuilder.Entity("DryCleanerAppDataAccess.Entities.UserAddressEntity", b =>
                 {
-                    b.HasOne("DryCleanerAppDataAccess.Models.CompanyEntity", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DryCleanerAppDataAccess.Models.UserEntity", "UserData")
-                        .WithMany()
-                        .HasForeignKey("UserDataId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-
-                    b.Navigation("UserData");
-                });
-
-            modelBuilder.Entity("DryCleanerAppDataAccess.Models.UserAddressEntity", b =>
-                {
-                    b.HasOne("DryCleanerAppDataAccess.Models.UserEntity", null)
+                    b.HasOne("DryCleanerAppDataAccess.Entities.UserEntity", null)
                         .WithMany("UserAddress")
                         .HasForeignKey("UserEntityId");
                 });
 
-            modelBuilder.Entity("DryCleanerAppDataAccess.Models.UserEntity", b =>
+            modelBuilder.Entity("DryCleanerAppDataAccess.Entities.UserEntity", b =>
                 {
-                    b.HasOne("DryCleanerAppDataAccess.Models.CompanyEntity", "Company")
+                    b.HasOne("DryCleanerAppDataAccess.Entities.CompanyEntity", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -289,7 +257,7 @@ namespace DryCleanerAppDataAccess.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("DryCleanerAppDataAccess.Models.UserEntity", b =>
+            modelBuilder.Entity("DryCleanerAppDataAccess.Entities.UserEntity", b =>
                 {
                     b.Navigation("UserAddress");
                 });

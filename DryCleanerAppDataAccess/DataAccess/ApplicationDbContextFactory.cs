@@ -13,7 +13,7 @@ namespace DryCleanerAppDataAccess.DataAccess
         public DryCleanerContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DryCleanerContext>();
-            optionsBuilder.UseMySql("Your Connectionstring here", ServerVersion.AutoDetect("Your Connectionstring here"));
+            optionsBuilder.UseMySql("Your Connection String", ServerVersion.AutoDetect("Your Connection String"));
             return new DryCleanerContext(optionsBuilder.Options);
         }
     }

@@ -89,81 +89,6 @@ namespace DryCleanerAppDataAccess.Migrations
                     b.ToTable("companyEntities");
                 });
 
-            modelBuilder.Entity("DryCleanerAppDataAccess.Entities.LoginLogEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreatedOn")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserAgent")
-                        .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
-
-                    b.Property<int>("UserDataId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("UserDataId");
-
-                    b.ToTable("loginLog");
-                });
-
-            modelBuilder.Entity("DryCleanerAppDataAccess.Entities.RefreshTokenEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedByID")
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("Expires")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("RefreshToken")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
-
-                    b.Property<string>("ReplaceByToken")
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("refreshTokenEntities");
-                });
-
             modelBuilder.Entity("DryCleanerAppDataAccess.Entities.UserAddressEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -309,25 +234,6 @@ namespace DryCleanerAppDataAccess.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("users");
-                });
-
-            modelBuilder.Entity("DryCleanerAppDataAccess.Entities.LoginLogEntity", b =>
-                {
-                    b.HasOne("DryCleanerAppDataAccess.Entities.CompanyEntity", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DryCleanerAppDataAccess.Entities.UserEntity", "UserData")
-                        .WithMany()
-                        .HasForeignKey("UserDataId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-
-                    b.Navigation("UserData");
                 });
 
             modelBuilder.Entity("DryCleanerAppDataAccess.Entities.UserAddressEntity", b =>
